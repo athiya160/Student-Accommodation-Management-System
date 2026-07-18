@@ -14,8 +14,6 @@ const AdminAllocateRoom1 = (props) => {
             .then(data => setData(data))
             .catch(err => console.error("Error fetching data: ", err));
     }, []);
-
-    let userid = sessionStorage.getItem('userid').toString();
     
     useEffect(() => {
         axios.get('http://localhost:5000/api/user/get/' + userid)
