@@ -47,13 +47,6 @@ import UserRaiseComplaint from './components/userraisecomplaint';
 import AdminViewComplaints from './components/adminviewcomplaints';
 import StaffViewUsers from './components/staffviewusers';
 function App() {
-  /*
-  return (
-    <div className="wrapper">
-      <Home/>
-    </div>
-  );
-  */
 console.log("User Type : ", sessionStorage.getItem('usertype'))
   if(sessionStorage.getItem('usertype') === null){
     return (
@@ -74,21 +67,6 @@ console.log("User Type : ", sessionStorage.getItem('usertype'))
                 <Route path="/stafflogin" element={<StaffLogin />} />
                 </Routes>
       </Router>
-        //  <Router>
-        //      <Header />
-        //      <Routes>
-        //          <Route path="/" element={<Home />} />
-        //          <Route path="/home" element={<Home />} />
-        //          <Route path="/about" element={<About />} />
-        //          <Route path="/services" element={<Services />} />
-        //          <Route path="/gallery" element={<Gallery />} />
-        //          <Route path="/adminlogin" element={<AdminLogin />} />
-        //          <Route path="/userlogin" element={<UserLogin />} />
-        //          <Route path="/stafflogin" element={<StaffLogin />} />
-        //          <Route path="/newuser" element={<NewUser />} />
-        //          <Route path="/contact" element={<Contact />} />
-        //      </Routes>
-        //  </Router>
      );
    }
    else if(sessionStorage.getItem('usertype') === 'staff'){

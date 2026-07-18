@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Landing.css';
 
 const AdminAllocateRoom1 = (props) => {
-    const [roomdata, setRoomdata] = useState('');
+    let userid = sessionStorage.getItem('userid').toString();
     const [dbdata, setDbdata] = useState('');
     const [data, setData] = useState([]);
     
