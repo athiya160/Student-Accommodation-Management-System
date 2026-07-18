@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { validate as validateEmail } from 'email-validator';
-import './NewUser.css'; // Import the CSS file
+import './Landing.css'; // Use unified Landing.css
 
 function NewUser() {
     const [fname, setFirstName] = useState("");
@@ -73,150 +73,121 @@ function NewUser() {
     }
 
     return (
-        <div className="background">
-            <div className="form-container">
-                <center>
-                    <div>
-                        <h1>New Registration Form</h1>
-                    </div>
+        <div className="landing-wrapper">
+            <div className="auth-page">
+                <div className="auth-card wide">
+                    <h1>New Registration</h1>
                     <form encType="multipart/form-data" method="post" onSubmit={handleOnSubmit}>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th><label className="label">First Name</label></th>
-                                    <td><input
-                                        className="input"
+                        <div className="grid-form">
+                            {/* Column 1 */}
+                            <div>
+                                <div className="form-group">
+                                    <label>First Name</label>
+                                    <input
                                         value={fname}
                                         onChange={ev => setFirstName(ev.target.value)}
-                                        type="text"
-                                        placeholder="First Name"
-                                        maxLength={15}
-                                        required
-                                    /></td>
-                                    <th><label className="label">Father Name</label></th>
-                                    <td><input
-                                        className="input"
-                                        value={fathername}
-                                        onChange={ev => setFatherName(ev.target.value)}
-                                        type="text"
-                                        placeholder="Father Name"
-                                        maxLength={10}
-                                        required
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">Last Name</label></th>
-                                    <td><input
-                                        className="input"
+                                        type="text" placeholder="First Name" maxLength={15} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Last Name</label>
+                                    <input
                                         value={lname}
                                         onChange={ev => setLastName(ev.target.value)}
-                                        type="text"
-                                        placeholder="Last Name"
-                                        maxLength={7}
-                                        required
-                                    /></td>
-                                    <th><label className="label">Mother Name</label></th>
-                                    <td><input
-                                        className="input"
-                                        value={mothername}
-                                        onChange={ev => setMotherName(ev.target.value)}
-                                        type="text"
-                                        placeholder="Mother Name"
-                                        maxLength={10}
-                                        required
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">Email</label></th>
-                                    <td><input
-                                        className="input"
+                                        type="text" placeholder="Last Name" maxLength={7} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input
                                         value={email}
                                         onChange={ev => setEmail(ev.target.value)}
-                                        type="email"
-                                        placeholder="Email Id"
-                                        required
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">Phone Num</label></th>
-                                    <td><input
-                                        className="input"
+                                        type="email" placeholder="Email Address" required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Phone Number</label>
+                                    <input
                                         value={phnum}
                                         onChange={ev => setPhoneNum(ev.target.value)}
-                                        type="text"
-                                        placeholder="Phone Num"
-                                        maxLength={10}
-                                        required
-                                    /></td>
-                                    <th><label className="label">Parent Phone Num</label></th>
-                                    <td><input
-                                        className="input"
-                                        value={parentphnum}
-                                        onChange={ev => setParentPhNum(ev.target.value)}
-                                        type="text"
-                                        placeholder="Parent Phone Num"
-                                        maxLength={10}
-                                        required
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">User Name</label></th>
-                                    <td><input
-                                        className="input"
+                                        type="text" placeholder="Phone Number" maxLength={10} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Username</label>
+                                    <input
                                         value={username}
                                         onChange={ev => setUserName(ev.target.value)}
-                                        type="text"
-                                        placeholder="User Name"
-                                        required
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">Password</label></th>
-                                    <td><input
-                                        className="input"
+                                        type="text" placeholder="Choose a Username" required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password</label>
+                                    <input
                                         value={password}
                                         onChange={ev => setPassword(ev.target.value)}
-                                        type="password"
-                                        placeholder="Password"
-                                        maxLength={15}
-                                    /></td>
-                                </tr>
-                                <tr>
-                                    <th><label className="label">Address</label></th>
-                                    <td><textarea
-                                        className="input"
+                                        type="password" placeholder="Create a Password" maxLength={15} required
+                                    />
+                                </div>
+                            </div>
+                            
+                            {/* Column 2 */}
+                            <div>
+                                <div className="form-group">
+                                    <label>Father's Name</label>
+                                    <input
+                                        value={fathername}
+                                        onChange={ev => setFatherName(ev.target.value)}
+                                        type="text" placeholder="Father's Name" maxLength={10} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Mother's Name</label>
+                                    <input
+                                        value={mothername}
+                                        onChange={ev => setMotherName(ev.target.value)}
+                                        type="text" placeholder="Mother's Name" maxLength={10} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Parent Phone Number</label>
+                                    <input
+                                        value={parentphnum}
+                                        onChange={ev => setParentPhNum(ev.target.value)}
+                                        type="text" placeholder="Parent Phone Number" maxLength={10} required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Student Address</label>
+                                    <textarea
                                         value={address}
                                         onChange={ev => setAddress(ev.target.value)}
-                                        rows={5}
-                                        placeholder="Address"
-                                        required
-                                    ></textarea></td>
-                                    <th><label className="label">Parent Address</label></th>
-                                    <td><textarea
-                                        className="input"
+                                        rows={3} placeholder="Current Address" required
+                                    ></textarea>
+                                </div>
+                                <div className="form-group">
+                                    <label>Parent Address</label>
+                                    <textarea
                                         value={parentaddress}
                                         onChange={ev => setParentAddress(ev.target.value)}
-                                        rows={5}
-                                        placeholder="Parent Address"
-                                    ></textarea></td>
-                                </tr>
-                                <tr>
-                                    <th colSpan={2}>
-                                        <center>
-                                            <button type="submit">
-                                                Register
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="/adminlogin">Admin Login</a>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="/userlogin">User Login</a>
-                                        </center>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        rows={3} placeholder="Permanent Address"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: '20px' }}>
+                            <button type="submit" className="btn-premium btn-primary-gradient" style={{ padding: '15px 50px' }}>
+                                Register
+                            </button>
+                        </div>
                     </form>
-                </center>
+
+                    <div className="auth-links" style={{ marginTop: '30px' }}>
+                        <a href="/userlogin">Already have an account? Student Login</a>
+                        <a href="/adminlogin">Admin Login</a>
+                    </div>
+                </div>
             </div>
         </div>
     );

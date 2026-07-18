@@ -18,6 +18,26 @@ class HomePage extends Component {
                     </div>
                 </section>
 
+                {/* Stats Section */}
+                <section className="stats-section">
+                    <div className="stat-box">
+                        <h3>15+</h3>
+                        <p>Hostels Managed</p>
+                    </div>
+                    <div className="stat-box">
+                        <h3>5,000+</h3>
+                        <p>Happy Students</p>
+                    </div>
+                    <div className="stat-box">
+                        <h3>100%</h3>
+                        <p>Automated Billing</p>
+                    </div>
+                    <div className="stat-box">
+                        <h3>24/7</h3>
+                        <p>Security & Support</p>
+                    </div>
+                </section>
+
                 {/* Features Section */}
                 <section className="features-section">
                     <h2 className="section-title">Why Choose Us?</h2>

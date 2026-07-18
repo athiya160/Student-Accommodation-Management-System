@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './AdminLogin.css'; // Import the CSS file
-
-const myStyle = {
-    backgroundImage: "url('https://t4.ftcdn.net/jpg/02/10/45/95/360_F_210459536_XmLDEcKq2DpeNLVmheuWeu9NM9aGKnih.jpg')",
-    height: "100vh",  // Adjusted to fit the viewport height
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
-    backgroundPosition: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-};
+import './Landing.css'; // Use unified Landing.css
 
 function AdminLogin() {
     const [msg, setMsg] = useState("");
@@ -38,59 +26,45 @@ function AdminLogin() {
     };
 
     return (
-        <div style={myStyle}>
-            <div className="form">
-                <h1>Admin Login Form</h1>
-                <form onSubmit={handleSubmit}>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th colSpan={2} className="message">{msg}</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label className="label">User Name</label>
-                                </th>
-                                <td>
-                                    <input
-                                        className="input"
-                                        value={username}
-                                        type="text"
-                                        onChange={ev => setUserName(ev.target.value)}
-                                        placeholder="User Name"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <label className="label">Password</label>
-                                </th>
-                                <td>
-                                    <input
-                                        className="input"
-                                        value={password}
-                                        type="password"
-                                        onChange={ev => setPassword(ev.target.value)}
-                                        placeholder="Password"
-                                        required
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th colSpan={2}>
-                                    <center>
-                                        <button type="submit">Admin Login</button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="/newuser">New Student</a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="/userlogin">User Login</a>
-                                    </center>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
+        <div className="landing-wrapper">
+            <div className="auth-page">
+                <div className="auth-card">
+                    <h1>Admin Login</h1>
+                    {msg && <div className="error-message">{msg}</div>}
+                    
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Username</label>
+                            <input
+                                value={username}
+                                type="text"
+                                onChange={ev => setUserName(ev.target.value)}
+                                placeholder="Enter your username"
+                                required
+                            />
+                        </div>
+                        
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                value={password}
+                                type="password"
+                                onChange={ev => setPassword(ev.target.value)}
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </div>
+                        
+                        <button type="submit" className="btn-premium btn-primary-gradient" style={{width: '100%', marginTop: '10px'}}>
+                            Login as Admin
+                        </button>
+                    </form>
+
+                    <div className="auth-links">
+                        <a href="/newuser">New Student Registration</a>
+                        <a href="/userlogin">Student Login</a>
+                    </div>
+                </div>
             </div>
         </div>
     );

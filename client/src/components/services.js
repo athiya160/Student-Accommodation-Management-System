@@ -1,117 +1,73 @@
 import React, { Component } from "react";
-import Header from "./header";
+import './Landing.css';
+
 class Services extends Component {
     render() {
         return (
-<div style={{marginTop:"-250px"}}>
-<main className="main">
-    <section id="services" class="services section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>SERVICES</h2>
-        <p>Hostel Management Software offers a comprehensive set of features, ranging from multi-property management with a centralized guest profile to centralized accounting to help effectively automates your daily operations.</p>
-      </div>
-      <div class="content">
-        <div class="container">
-          <div class="row g-0">
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">01</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Channel Manager for Hostel</h3>
-                  <p>
-                  Manage all channels going in and out of your business digitally with our channel manager. Reduce discrepancy across all channels with our centralize reservation management, guest information management, rates update & more.
-                  </p>
-                </div>
-              </div>
+            <div className="landing-wrapper">
+                <section className="services-section">
+                    <div className="container" style={{maxWidth: '1200px', margin: '0 auto'}}>
+                        <div style={{textAlign: 'center', marginBottom: '60px'}}>
+                            <h2 className="section-title">Our Premium Services</h2>
+                            <p style={{color: '#666', maxWidth: '800px', margin: '0 auto', fontSize: '1.1rem'}}>
+                                NextGen Hostel Management offers a comprehensive set of features, ranging from multi-property management with a centralized guest profile to automated daily operations.
+                            </p>
+                        </div>
+                        
+                        <div className="features-grid">
+                            <div className="feature-card">
+                                <div className="feature-icon">🌐</div>
+                                <h3>Channel Manager</h3>
+                                <p>Manage all channels digitally. Reduce discrepancy with centralized reservation and guest information management.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">📈</div>
+                                <h3>Yield Management</h3>
+                                <p>Easily adjust your room rates based on room type, group occupancy or current market demands.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">📅</div>
+                                <h3>Reservation Software</h3>
+                                <p>Oversees room availability, rates, guest information, and secure payment processing in real-time.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">📊</div>
+                                <h3>Booking Data</h3>
+                                <p>Helps you understand your guests better to create personalized experiences and improve retention.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">🛏️</div>
+                                <h3>Smart Room Allocation</h3>
+                                <p>Assign rooms tailored precisely to guest preferences and budget all before they arrive.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">🧹</div>
+                                <h3>Housekeeping Software</h3>
+                                <p>Guests can make housekeeping requests via the app and receive real-time updates on their request.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">🔒</div>
+                                <h3>Security Management</h3>
+                                <p>Access restrictions with whitelisted IPs for front line staff, and remote access for admins.</p>
+                            </div>
+                            
+                            <div className="feature-card">
+                                <div className="feature-icon">📑</div>
+                                <h3>Performance Reports</h3>
+                                <p>Comprehensive summary of hostel fees, mess bills, inventory management, and other essential aspects.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">02</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Rate & Yield Management</h3>
-                  <p>
-                  Easily adjust your room rates based on room type, group occupancy or current market demands.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">03</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Reservation Software</h3>
-                  <p>
-                  Oversees room availability, rates, guest information, and payment processing while keeping track of the number of guests and room availability.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">04</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Booking Data</h3>
-                  <p>
-                  Helps you understand your guests better to create personalized experiences for them.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">05</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Room Allocation System</h3>
-                  <p>
-                  Assign rooms tailored precisely to guest preferences, budget, and the number of available rooms in your hostel all before they arrive.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">06</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Housekeeping Software</h3>
-                  <p>
-                  Guests can make housekeeping requests via your app, and recieve real-time updates on their request.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">07</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Security Management</h3>
-                  <p>
-                  Access restrictions - Login only from Whitelisted IPs for front line staff, access from anywhere for managers/admins
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="service-item">
-                <span class="number">08</span>
-                <div class="service-item-content">
-                  <h3 class="service-heading">Hostel Performance Reports</h3>
-                  <p>
-                  Comprehensive summary encompasses crucial information on hostel fees, mess bills, inventory management, and other essential aspects.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-</main>
-</div>
-)
-
+        )
     }
-
 }
 
 export default Services;
