@@ -358,6 +358,16 @@ body, html, .landing-wrapper {
   font-weight: 600;
 }
 
+.success-message {
+  color: #155724;
+  background: #d4edda;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 /* CSS Grid for Registration Form */
 .grid-form {
   display: grid;

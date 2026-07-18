@@ -15,6 +15,8 @@ function NewUser() {
     const [parentphnum, setParentPhNum] = useState("");
     const [parentaddress, setParentAddress] = useState("");
     const [photo, setPhoto] = useState("");
+    const [msg, setMsg] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleFileSelect = (event) => {
         setPhoto(event.target.files[0])
@@ -22,52 +24,62 @@ function NewUser() {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        setMsg("");
+        setIsSuccess(false);
+        
         if (fname === "" || !fname.match("^[A-Za-z\\s]+$")) {
-            alert("Please provide a valid First Name");
+            setMsg("Please provide a valid First Name");
         } else if (lname === "" || !lname.match("^[A-Za-z\\s]+$")) {
-            alert("Please provide a valid Last Name");
+            setMsg("Please provide a valid Last Name");
         } else if (email === "" || !validateEmail(email)) {
-            alert("Invalid Email");
-        } else if (phnum === "" || !phnum.match('[6789][0-9]{9}')) {
-            alert("Please provide a valid phone number");
+            setMsg("Invalid Email");
+        } else if (phnum === "" || !phnum.match('^\\+?[0-9\\s-]{10,15}$')) {
+            setMsg("Please provide a valid phone number (10-15 digits)");
         } else if (username === "") {
-            alert("User Name is Empty");
+            setMsg("User Name is Empty");
         } else if (password === "") {
-            alert("Password is Empty");
+            setMsg("Password is Empty");
         } else if (fathername === "") {
-            alert("Father Name is Empty");
+            setMsg("Father Name is Empty");
         } else if (mothername === "") {
-            alert("Mother Name is Empty");
-        } else if (parentphnum === "" || !parentphnum.match('[6789][0-9]{9}')) {
-            alert("Please provide a valid Parent Phone Number");
+            setMsg("Mother Name is Empty");
+        } else if (parentphnum === "" || !parentphnum.match('^\\+?[0-9\\s-]{10,15}$')) {
+            setMsg("Please provide a valid Parent Phone Number (10-15 digits)");
         } else {
             let roomallocated = "No";
             let messallocated = "No";
-            let result = await fetch(
-                'http://localhost:5000/api/user/add', {
-                method: "post",
-                body: JSON.stringify({
-                    fname, lname, email, phnum, username,
-                    password, address, fathername, mothername, parentphnum, parentaddress,
-                    roomallocated, messallocated
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
+            try {
+                let result = await fetch(
+                    'http://localhost:5000/api/user/add', {
+                    method: "post",
+                    body: JSON.stringify({
+                        fname, lname, email, phnum, username,
+                        password, address, fathername, mothername, parentphnum, parentaddress,
+                        roomallocated, messallocated
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                result = await result.json();
+                console.warn(result);
+                if (result) {
+                    setIsSuccess(true);
+                    setMsg("Registration successful! You can now login.");
+                    setEmail("");
+                    setFirstName("");
+                    setAddress("");
+                    setLastName("");
+                    setMotherName("");
+                    setParentAddress("");
+                    setParentPhNum("");
+                    setPhoneNum("");
+                    setUserName("");
+                    setPassword("");
+                    setFatherName("");
                 }
-            })
-            result = await result.json();
-            console.warn(result);
-            if (result) {
-                alert("Data saved successfully");
-                setEmail("");
-                setFirstName("");
-                setAddress("");
-                setLastName("");
-                setMotherName("");
-                setParentAddress("");
-                setParentPhNum("");
-                setPhoneNum("");
-                setUserName("");
+            } catch (err) {
+                setMsg("Server error. Please try again later.");
             }
         }
     }
@@ -77,6 +89,7 @@ function NewUser() {
             <div className="auth-page">
                 <div className="auth-card wide">
                     <h1>New Registration</h1>
+                    {msg && <div className={isSuccess ? "success-message" : "error-message"}>{msg}</div>}
                     <form encType="multipart/form-data" method="post" onSubmit={handleOnSubmit}>
                         <div className="grid-form">
                             {/* Column 1 */}
@@ -86,7 +99,7 @@ function NewUser() {
                                     <input
                                         value={fname}
                                         onChange={ev => setFirstName(ev.target.value)}
-                                        type="text" placeholder="First Name" maxLength={15} required
+                                        type="text" placeholder="First Name" maxLength={50} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -94,7 +107,7 @@ function NewUser() {
                                     <input
                                         value={lname}
                                         onChange={ev => setLastName(ev.target.value)}
-                                        type="text" placeholder="Last Name" maxLength={7} required
+                                        type="text" placeholder="Last Name" maxLength={50} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -110,7 +123,7 @@ function NewUser() {
                                     <input
                                         value={phnum}
                                         onChange={ev => setPhoneNum(ev.target.value)}
-                                        type="text" placeholder="Phone Number" maxLength={10} required
+                                        type="text" placeholder="Phone Number" maxLength={15} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -126,7 +139,7 @@ function NewUser() {
                                     <input
                                         value={password}
                                         onChange={ev => setPassword(ev.target.value)}
-                                        type="password" placeholder="Create a Password" maxLength={15} required
+                                        type="password" placeholder="Create a Password" maxLength={50} required
                                     />
                                 </div>
                             </div>
@@ -138,7 +151,7 @@ function NewUser() {
                                     <input
                                         value={fathername}
                                         onChange={ev => setFatherName(ev.target.value)}
-                                        type="text" placeholder="Father's Name" maxLength={10} required
+                                        type="text" placeholder="Father's Name" maxLength={50} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -146,7 +159,7 @@ function NewUser() {
                                     <input
                                         value={mothername}
                                         onChange={ev => setMotherName(ev.target.value)}
-                                        type="text" placeholder="Mother's Name" maxLength={10} required
+                                        type="text" placeholder="Mother's Name" maxLength={50} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -154,7 +167,7 @@ function NewUser() {
                                     <input
                                         value={parentphnum}
                                         onChange={ev => setParentPhNum(ev.target.value)}
-                                        type="text" placeholder="Parent Phone Number" maxLength={10} required
+                                        type="text" placeholder="Parent Phone Number" maxLength={15} required
                                     />
                                 </div>
                                 <div className="form-group">

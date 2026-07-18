@@ -7,36 +7,46 @@ function Contact() {
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
+    const [msg, setMsg] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (cname == null || cname.length == 0) {
-            alert("Contact Name is Empty")
+        setMsg("");
+        setIsSuccess(false);
+
+        if (cname == null || cname.trim().length === 0) {
+            setMsg("Contact Name is Empty");
         }
         else if (!(cname.match("^[A-Za-z\\s]+$"))) {
-            alert('Please provide a valid Contact Name. It should only contain letters and spaces.');
-        } else if (email == null || email.length == 0) {
-            alert("Email is Empty");
+            setMsg('Please provide a valid Contact Name. It should only contain letters and spaces.');
+        } else if (email == null || email.trim().length === 0) {
+            setMsg("Email is Empty");
         } else if (!validateEmail(email)) {
-            alert("Invalid Email");
-        } else if (subject == null || subject.length == 0) {
-            alert("Subject is Empty");
-        } else if (message == null || message.length == 0) {
-            alert("Message is Empty");
+            setMsg("Invalid Email");
+        } else if (subject == null || subject.trim().length === 0) {
+            setMsg("Subject is Empty");
+        } else if (message == null || message.trim().length === 0) {
+            setMsg("Message is Empty");
         } else {
-            let result = await fetch(
-                'http://localhost:5000/api/contact/addcontact', {
-                method: "post",
-                body: JSON.stringify({ cname, email, subject, message }),
-                headers: {
-                    'Content-Type': 'application/json'
+            try {
+                let result = await fetch(
+                    'http://localhost:5000/api/contact/addcontact', {
+                    method: "post",
+                    body: JSON.stringify({ cname, email, subject, message }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                result = await result.json();
+                console.warn(result);
+                if (result) {
+                    setIsSuccess(true);
+                    setMsg("Message sent successfully!");
+                    setCname(""); setEmail(""); setSubject(""); setMessage("");
                 }
-            });
-            result = await result.json();
-            console.warn(result);
-            if (result) {
-                alert("Message sent successfully!");
-                setCname(""); setEmail(""); setSubject(""); setMessage("");
+            } catch (error) {
+                setMsg("Server error. Please try again later.");
             }
         }
     };
@@ -48,6 +58,8 @@ function Contact() {
                     <h1>Get In Touch</h1>
                     <p style={{marginBottom: '40px', color: '#666'}}>Have questions about our hostel facilities? We'd love to hear from you.</p>
                     
+                    {msg && <div className={isSuccess ? "success-message" : "error-message"}>{msg}</div>}
+
                     <div className="contact-split">
                         <div className="contact-info">
                             <h3>Contact Info</h3>
@@ -64,7 +76,7 @@ function Contact() {
                                     <input
                                         onChange={ev => setCname(ev.target.value)}
                                         value={cname}
-                                        type="text" maxLength={15}
+                                        type="text" maxLength={50}
                                         placeholder="Enter your name"
                                         required
                                     />
@@ -86,7 +98,7 @@ function Contact() {
                                     <input
                                         onChange={ev => setSubject(ev.target.value)}
                                         value={subject}
-                                        type="text"
+                                        type="text" maxLength={100}
                                         placeholder="Subject of your message"
                                         required
                                     />
