@@ -444,8 +444,176 @@ body, html, .landing-wrapper {
   transform: scale(1.03);
 }
 
-/* SERVICES PAGE */
 .services-section {
   padding: 100px 20px;
   background: #f8f9fa;
+}
+
+/* ========================================================= */
+/* --- DASHBOARD STYLES (AUTHENTICATED PAGES) --- */
+/* ========================================================= */
+
+.dashboard-container {
+  padding: 120px 20px 60px 20px; /* Space for fixed header */
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f4f7f6;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.dashboard-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+/* Profile Grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-avatar {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  border-radius: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+}
+
+.profile-avatar h3 {
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.detail-item {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.detail-item label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.detail-item p {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Data Tables */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  min-width: 800px;
+}
+
+.modern-table th {
+  background: #f8f9fa;
+  color: #333;
+  font-weight: 700;
+  padding: 18px 20px;
+  text-align: left;
+  border-bottom: 2px solid #eaeaea;
+  white-space: nowrap;
+}
+
+.modern-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #eaeaea;
+  color: #555;
+}
+
+.modern-table tr:last-child td {
+  border-bottom: none;
+}
+
+.modern-table tr:hover td {
+  background-color: #fcfcfc;
+}
+
+/* Invoice Card */
+.invoice-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px dashed #ccc;
+  max-width: 400px;
+  margin: 40px auto 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.invoice-header {
+  text-align: center;
+  border-bottom: 2px dashed #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.invoice-header h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.invoice-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #eee;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a1a;
 }

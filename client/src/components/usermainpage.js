@@ -1,42 +1,44 @@
 import React, { Component } from "react";
+import './Landing.css'; // Make sure the new styles are loaded
 
 class UserMainPage extends Component {
     render() {
         return (
-            <div style={{ margin: "50px" }}>
-                <br></br><br></br><br></br>
-                <h2>Hostel Management System</h2>
-                <p>
-                    Hostel management system is designed to manage all hostel activities like hostel admissions, fees, room, mess allotment, hostel stores & generates related reports for smooth transactions. It is also used to manage monthly mess bill calculation, hostel staff payroll, student certificates, etc.
-                </p>
-                <p>
-                    A hostel management system is software developed for managing various activities in the hostel. It manages activities including the student information, room information, mess bills, room allocation details, fee details and tracking of the number of students and availability of students.
-                </p>
-                <p>
-                    Managing hostels can become a tedious task. Especially if you don't have an appropriate management system. With so many software and applications available, it might get overwhelming about the number of management systems prevalent in the market. Hence, it is important to select a Hostel Management Software that has the features that cover all hostel management needs.
-                </p>
-                <p>
-                    Some of the features that should be present in a hostel management system are
-                    <br></br>
-                    <ol><li>
-                        Simple to use and ease of navigation</li><li>
-                            Transparency of features</li><li>
-                            Quick access to information</li><li>
-                            Smart system</li><li>
-                            Seamless transfer between pages</li><li>
-                            Manage student records</li><li>
-                            Monitor the hostel status</li><li>
-                            Visitor and student management</li><li>
-                            Reminders and alerts</li><li>
-                            Gate Pass Management</li>
-                    </ol>
-                </p>
-                <p>
-                    User Interface and user experience are important for any website or web application. Hence, it is important that your hostel management system has an interface that enhances your customer experience. Also, the users should be able to move and run parallel requests and functional pages at the same time. Hostel management system makes the management/maintainence/repair work much easier.
-                </p>
-                <p>
-                    Hostels are considered to be the second home for residents and students living there. Thus, enrich their experience with a hostel administration without a hitch. Thus, it can be said that selecting a hostel management is all what you need for a hassle free hostel.
-                </p>
+            <div className="dashboard-container">
+                <div className="dashboard-header">
+                    <h2>Welcome to the Student Dashboard</h2>
+                    <p style={{color: '#666', fontSize: '1.1rem'}}>Manage your hostel activities seamlessly</p>
+                </div>
+
+                <div className="dashboard-card">
+                    <h3 style={{fontFamily: 'Outfit, sans-serif', marginBottom: '20px', color: '#0072ff'}}>Hostel Management Overview</h3>
+                    <p style={{fontSize: '1.1rem', color: '#555', lineHeight: '1.8'}}>
+                        The Hostel Management System is designed to streamline all your hostel-related activities, including admissions, fee payments, room and mess allotments, and generating necessary reports for smooth transactions. 
+                    </p>
+                    <p style={{fontSize: '1.1rem', color: '#555', lineHeight: '1.8'}}>
+                        Our platform gives you full control and transparency over your student records, providing quick access to information without the hassle of traditional paperwork.
+                    </p>
+                </div>
+
+                <div className="features-grid" style={{marginTop: '40px', padding: 0, background: 'transparent'}}>
+                    <div className="feature-card">
+                        <div className="feature-icon">🏠</div>
+                        <h4>Room & Mess Allocation</h4>
+                        <p style={{color: '#666', fontSize: '0.95rem'}}>View your currently assigned room and mess preferences in the Reports section.</p>
+                    </div>
+                    
+                    <div className="feature-card">
+                        <div className="feature-icon">👤</div>
+                        <h4>Profile Management</h4>
+                        <p style={{color: '#666', fontSize: '0.95rem'}}>Keep your personal details, contact information, and parent details up to date.</p>
+                    </div>
+
+                    <div className="feature-card">
+                        <div className="feature-icon">📝</div>
+                        <h4>Raise Complaints</h4>
+                        <p style={{color: '#666', fontSize: '0.95rem'}}>Quickly log maintenance issues or other complaints directly with hostel administration.</p>
+                    </div>
+                </div>
             </div>
         )
     }

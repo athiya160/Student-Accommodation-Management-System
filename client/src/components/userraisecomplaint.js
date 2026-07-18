@@ -1,98 +1,106 @@
 import React from "react";
-import { useEffect } from 'react';
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Landing.css'; // Make sure the new styles are loaded
+
 function UserRaiseComplaint() {
     const [dbdata, setDbdata] = useState('');
     const [complaint, setComplaint] = useState('');    
-    let userid = sessionStorage.getItem('userid').toString()
-    console.log("User Id : ", userid)
+    const [msg, setMsg] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    let userid = sessionStorage.getItem('userid').toString();
+    console.log("User Id : ", userid);
+
     useEffect(() => {
         axios.get('http://localhost:5000/api/user/get/' + userid)
             .then(res => {
                 setDbdata(res.data);
-                console.log("Response : ", res.data)
+                console.log("Response : ", res.data);
             })
-    }, []);
+    }, [userid]);
+
     const handleOnSubmit = async (e) => {
 		e.preventDefault();
+        setMsg('');
+        setIsSuccess(false);
+
+        if (!complaint || complaint.trim().length === 0) {
+            setMsg('Please enter your complaint before submitting.');
+            return;
+        }
+
 		let fname = dbdata['fname']
 		let lname = dbdata['lname']
         let email = dbdata['email']
         let phnum = dbdata['phnum']
 
-		let result = await fetch(
-			'http://localhost:5000/api/complaint/add', {
-			method: "post",
-			body: JSON.stringify({
-				fname, lname, email, phnum, complaint, userid
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		result = await result.json();
-		console.warn(result);
-		if (result) {
-			alert("Data saved succesfully");
-		}
+		try {
+            let result = await fetch(
+                'http://localhost:5000/api/complaint/add', {
+                method: "post",
+                body: JSON.stringify({
+                    fname, lname, email, phnum, complaint, userid
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            result = await result.json();
+            console.warn(result);
+            if (result) {
+                setIsSuccess(true);
+                setMsg("Your complaint has been successfully registered.");
+                setComplaint("");
+            }
+        } catch (err) {
+            setMsg("Failed to submit complaint. Please try again later.");
+        }
 	}
+
     return (
-        <div>
-            <center>
-                <h2>User Raise Complaint Page</h2>
-            </center>
-            <p>
-            <form encType="multipart/form-data" method="post">
-                <table style={{
-                    width: '40%', left: '150px', top: '150px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>User Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>First Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['fname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Last Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['lname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Email Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['email']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Phone Number</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['phnum']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Address</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['address']}</td>
-                    </tr>
-                    <tr><th><br></br>
-							<label className="label" style={{ color: "black" }}>Complaint</label> </th>
-							<td><br></br>
-								<textarea rows={5} cols={30} value={complaint} placeholder="Enter Ur Complaint"
-									onChange={ev => setComplaint(ev.target.value)}>
-								</textarea>
-							</td>
-						</tr>
-                    <tr><th colSpan={2}>
-							<br></br>
-							<center>
-								<button onClick={handleOnSubmit} type="submit">
-									Raise Complaint
-								</button>
-							</center>
-						</th>
-						</tr>
-                </table>
-            </form>
-            </p>
+        <div className="dashboard-container">
+            <div className="dashboard-header">
+                <h2>Raise a Complaint</h2>
+                <p style={{color: '#666', fontSize: '1.1rem'}}>Log maintenance issues or administrative concerns</p>
+            </div>
+
+            <div className="dashboard-card" style={{maxWidth: '700px', margin: '0 auto'}}>
+                {msg && <div className={isSuccess ? "success-message" : "error-message"}>{msg}</div>}
+                
+                <form encType="multipart/form-data" method="post" onSubmit={handleOnSubmit}>
+                    
+                    {/* Read Only Details for context */}
+                    <div style={{background: '#f8f9fa', padding: '20px', borderRadius: '12px', marginBottom: '30px'}}>
+                        <h4 style={{marginTop: 0, marginBottom: '15px', color: '#1a1a1a', fontSize: '1rem'}}>Your Details</h4>
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', fontSize: '0.9rem', color: '#555'}}>
+                            <div><strong>Name:</strong> {dbdata['fname']} {dbdata['lname']}</div>
+                            <div><strong>User ID:</strong> {dbdata['_id']}</div>
+                            <div><strong>Email:</strong> {dbdata['email']}</div>
+                            <div><strong>Phone:</strong> {dbdata['phnum']}</div>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Describe your complaint in detail</label>
+                        <textarea 
+                            rows={6} 
+                            value={complaint} 
+                            placeholder="Example: The AC in room 204 is not cooling properly."
+                            onChange={ev => setComplaint(ev.target.value)}
+                            required>
+                        </textarea>
+                    </div>
+
+                    <div style={{ marginTop: '30px' }}>
+                        <button type="submit" className="btn-premium btn-primary-gradient" style={{ width: '100%' }}>
+                            Submit Complaint
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
+
 export default UserRaiseComplaint;
