@@ -10,36 +10,41 @@ function UserLogin() {
     const navigate = useNavigate();
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        if (username === "" || username.length === 0) {
-            alert("UserName is Empty");
+        setMsg("");
+        
+        if (username === "" || username.trim().length === 0) {
+            setMsg("UserName is Empty");
         }
         else if (password === "" || password.length === 0) {
-            alert("Password is Empty");
+            setMsg("Password is Empty");
         }
         else {
-            let result = await fetch(
-                'http://localhost:5000/api/user/checkuserlogin', {
-                method: "post",
-                body: JSON.stringify({
-                    username, password
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
+            try {
+                let result = await fetch(
+                    'http://localhost:5000/api/user/checkuserlogin', {
+                    method: "post",
+                    body: JSON.stringify({
+                        username, password
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                result = await result.json();
+                console.log("Result : ", result, " Length : ", Object.keys(result).length, 
+                " Id : ", result['_id']);
+                if (result !== undefined && Object.keys(result).length > 0) {
+                    sessionStorage.setItem("usertype", "user")
+                    sessionStorage.setItem("userid", result['_id'])
+                    console.log("Id : ", result['_id'])
+                    let path = '/usermainpage';
+                    navigate(path);
+                    window.location.reload(false);
+                } else {
+                    setMsg("Invalid UserName/Password");              
                 }
-            })
-            result = await result.json();
-            console.log("Result : ", result, " Length : ", Object.keys(result).length, 
-            " Id : ", result['_id']);
-            if (result !== undefined && Object.keys(result).length > 0) {
-                sessionStorage.setItem("usertype", "user")
-                sessionStorage.setItem("userid", result['_id'])
-                console.log("Id : ", result['_id'])
-                let path = '/usermainpage';
-                navigate(path);
-                window.location.reload(false);
-            } else {
-                setMsg("Invalid UserName/Password");
-                alert("Invalid UserName/Password");                
+            } catch (err) {
+                setMsg("Server error. Please try again later.");
             }
         }
     }
@@ -81,6 +86,7 @@ function UserLogin() {
 
                     <div className="auth-links">
                         <a href="/newuser">New Student Registration</a>
+                        <a href="/stafflogin">Staff Login</a>
                         <a href="/adminlogin">Admin Login</a>
                     </div>
                 </div>

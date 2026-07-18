@@ -79,7 +79,7 @@ function StaffLogin() {
 
                     <div className="auth-links">
                         <a href="/newstaffregister">New Staff Registration</a>
-                        <a href="/newuser">New Student Registration</a>
+                        <a href="/userlogin">Student Login</a>
                         <a href="/adminlogin">Admin Login</a>
                     </div>
                 </div>
