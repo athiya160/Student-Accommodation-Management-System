@@ -1,49 +1,45 @@
 import React, { Component } from "react";
-import Header from "./header";
+import "./Landing.css";
 
 class HomePage extends Component {
     render() {
         return (
-            <section id="hero">
-                <div id="heroCarousel" data-bs-interval={5000} className="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <ol className="carousel-indicators" id="hero-carousel-indicators" />
-                    <div className="carousel-inner" role="listbox">
-                        <div className="carousel-item active" style={{ backgroundImage: 'url(assets/img/newPic1.png)' }}>
-                            <div className="carousel-container">
-                                <div className="container">
-                                    <h2 className="animate__animated animate__fadeInDown">Welcome to <span>Online Hostel Management</span></h2>
-                                    <p className="animate__animated animate__fadeInUp"></p>
-                                    {/* <a href="#about" className="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="carousel-item" style={{ backgroundImage: 'url(assets/img/newPic2.jpg)' }}>
-                            <div className="carousel-container">
-                                <div className="container">
-                                    <h2 className="animate__animated animate__fadeInDown">Welcome to <span>Online Hostel Management</span></h2>
-                                    <p className="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                                    {/* <a href="#about" className="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="carousel-item" style={{ backgroundImage: 'url(assets/img/newPic3.jfif)' }}>
-                            <div className="carousel-container">
-                                <div className="container">
-                                    <h2 className="animate__animated animate__fadeInDown">Welcome to <span>Online Hostel Management</span></h2>
-                                    <p className="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                                    {/* <a href="#about" className="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a> */}
-                                </div>
-                            </div>
+            <div className="landing-wrapper">
+                {/* Hero Section */}
+                <section className="hero-section" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=2069&ixlib=rb-4.0.3')" }}>
+                    <div className="hero-overlay"></div>
+                    <div className="hero-content">
+                        <h1 className="hero-title">Welcome to <span>NextGen Hostel</span> Management</h1>
+                        <p className="hero-subtitle">Experience the future of student accommodation. Smart, secure, and seamless management for modern living.</p>
+                        <div className="hero-buttons">
+                            <a href="/newuser" className="btn-premium btn-primary-gradient">Get Started Today</a>
+                            <a href="/userlogin" className="btn-premium btn-glass">Student Login</a>
                         </div>
                     </div>
-                    {/* <a className="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true" />
-                    </a>
-                    <a className="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-                        <span className="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true" />
-                    </a> */}
-                </div>
-            </section>
+                </section>
+
+                {/* Features Section */}
+                <section className="features-section">
+                    <h2 className="section-title">Why Choose Us?</h2>
+                    <div className="features-grid">
+                        <div className="feature-card">
+                            <div className="feature-icon">🏠</div>
+                            <h3>Smart Room Allocation</h3>
+                            <p>Automated, hassle-free room assignments ensuring the best fit for every student based on preferences and availability.</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-icon">🍽️</div>
+                            <h3>Mess Management</h3>
+                            <p>Track daily meals, manage menus, and handle mess fees smoothly with our integrated dining management tools.</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-icon">🛡️</div>
+                            <h3>24/7 Support & Security</h3>
+                            <p>Raise maintenance complaints instantly. We prioritize your comfort and ensure issues are resolved lightning-fast.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
         );
     }
 }

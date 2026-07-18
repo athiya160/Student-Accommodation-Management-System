@@ -1,49 +1,46 @@
 import React, { Component } from "react";
+import "./Landing.css";
 
 class About extends Component {
     render() {
-        // Inline style for background image
-        const backgroundStyle = {
-            backgroundImage: "url('https://example.com/your-background-image.jpg')", // Replace with your image URL
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "100vh",
-            padding: "20px",
-            color: "#fff", // Adjust text color to contrast with the background
-            display: 'block', // Ensure the component is visible
-        };
-
         return (
-            <div style={backgroundStyle}>
-                <h2>About Online Hostel Management System</h2>
-                <p>
-                    The hostel management system is designed to manage all hostel activities like hostel admissions, fees, room, mess allotment, hostel stores, and generates related reports for smooth transactions.
-                </p>
-                <ol>
-                    <li>Develop a Business Plan</li>
-                    <li>Hire the Right Staff</li>
-                    <li>Keep the Hostel Clean and Well-Maintained</li>
-                    <li>Create a Welcoming Environment</li>
-                    <li>Offer Excellent Customer Service</li>
-                    <li>Use Technology</li>
-                    <li>Embrace Sustainability</li>
-                    <li>Manage Your Finances</li>
-                </ol>
-                <p>
-                    The hostel management system is developed specifically for hostel owners to manage different activities in the hostel. From promotions, receiving bookings through multiple OTAs, managing and selling beds and dorms, to enhancing guests’ experience, hostel software streamlines all aspects of your hostel while also helping you grow your revenue.
-                </p>
-                <p>
-                    Regardless of your hostel’s size and the type of beds or rooms you are selling, our best hostel management software will help you simplify all complex operations with no interruptions.
-                </p>
-                <p>
-                    Hostels like yours are occupied year-round. With eZee’s hostel booking software, you can sell your beds at dynamic pricing depending on occupancy and seasonal rush, earning you maximum revenue.
-                </p>
-                <p>
-                    Even if your hostels are scattered across multiple locations, miles away from each other, our hostel management system will let you manage all your hostel operations from a single place.
-                </p>
-                <p>
-                    Our hostel channel manager, connected with OTAs like Hostelworld, Hostelsclub, and Hostelbookers, gets you more potential bookings from all across the world.
-                </p>
+            <div className="landing-wrapper">
+                <section className="about-hero">
+                    <div className="hero-overlay"></div>
+                    <div className="hero-content">
+                        <h1 className="hero-title">About <span>Us</span></h1>
+                        <p className="hero-subtitle">Transforming hostel management through innovation and intelligent design.</p>
+                    </div>
+                </section>
+
+                <section className="about-content">
+                    <div className="about-grid">
+                        <div className="about-text">
+                            <h2>Elevating the Student Living Experience</h2>
+                            <p>
+                                Our hostel management system is developed specifically to streamline every aspect of hostel operations. From automated admissions and fee processing to seamless room and mess allotments, we ensure your facility runs without friction.
+                            </p>
+                            <p>
+                                We believe in providing an unparalleled experience for both hostel administrators and students. By eliminating manual paperwork and introducing smart digital workflows, we empower you to focus on what truly matters: creating a welcoming environment.
+                            </p>
+                            
+                            <h3>Our Core Principles</h3>
+                            <ul className="principles-list">
+                                <li>Intelligent Space Allocation</li>
+                                <li>Transparent Fee Management</li>
+                                <li>24/7 Security & Support</li>
+                                <li>Seamless Communication</li>
+                                <li>Sustainable Operations</li>
+                                <li>Data-Driven Decisions</li>
+                                <li>Exceptional Resident Service</li>
+                                <li>Future-Ready Technology</li>
+                            </ul>
+                        </div>
+                        <div className="about-image">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3" alt="Students collaborating in a modern space" />
+                        </div>
+                    </div>
+                </section>
             </div>
         );
     }
