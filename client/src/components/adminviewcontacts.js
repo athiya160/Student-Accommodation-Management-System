@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import './Landing.css';
+
 function AdminViewContacts() {
     const [data, setData] = useState([]);
     useEffect(() => { 
@@ -6,33 +8,39 @@ function AdminViewContacts() {
           .then(response => response.json()) 
           .then(data => setData(data)) 
           .catch(err => console.error("Error fetching data: ", err)); 
-      }, []); 
-        return (
-            <div>
-                <br></br><br></br><br></br><br></br><br></br><br></br>
-                <h2>
-                <center>Admin View Contacts Page</center>
-                </h2>
-                <p>
-                <table style={{ width: '90%', left: '10px', position: 'absolute', border: '1px solid black',
-        textAlign:"center"}}>
-        <tr style={{ width: '800px', border: '1px solid black', fontSize:'20px' }}>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Contact Name</th>            
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Email Id</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Subject</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Message</th>
-        </tr>
-        {data.map(x => ( 
-            <tr style={{ width: '800px', fontSize:'20px' }}>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.cname}</td>                
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.email}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.subject}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.message}</td>
-            </tr>
-        ))} 
-      </table>
-                </p>
-            </div>    
+    }, []); 
+
+    return (
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Contact Messages</h1>
+                    
+                    <div className="table-responsive">
+                        <table className="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Contact Name</th>
+                                    <th>Email Id</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((x, index) => ( 
+                                    <tr key={index}>
+                                        <td>{x.cname}</td>
+                                        <td>{x.email}</td>
+                                        <td>{x.subject}</td>
+                                        <td>{x.message}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 export default AdminViewContacts;

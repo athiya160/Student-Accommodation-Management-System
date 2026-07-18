@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Landing.css';
 
 function AdminAddRoom() {
     const [rname, setRoomName] = useState("");
@@ -6,131 +7,108 @@ function AdminAddRoom() {
     const [price, setPrice] = useState("");
     const [numofstudents, setNumberOfStudents] = useState("");
     const [details, setDetails] = useState("");
+    const [msg, setMsg] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+    
     const roomtypes = ["One Student", "Two Students", "Three Students", "More"];
 
     const onOptionChangeHandler = (event) => {
         setRoomType(event.target.value);
-        console.log("User Selected Value - ", event.target.value);
     };
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        let result = await fetch('http://localhost:5000/api/room/add', {
-            method: "post",
-            body: JSON.stringify({ rname, rtype, numofstudents, details, price }),
-            headers: {
-                'Content-Type': 'application/json'
+        setMsg("");
+        setIsSuccess(false);
+        try {
+            let result = await fetch('http://localhost:5000/api/room/add', {
+                method: "post",
+                body: JSON.stringify({ rname, rtype, numofstudents, details, price }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            result = await result.json();
+            if (result) {
+                setIsSuccess(true);
+                setMsg("Room saved successfully!");
+                setRoomName("");
+                setPrice("");
+                setNumberOfStudents("");
+                setDetails("");
             }
-        });
-        result = await result.json();
-        console.warn(result);
-        if (result) {
-            alert("Data saved successfully");
+        } catch (err) {
+            setMsg("Server error while saving room.");
         }
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.formContainer}>
-                <h1 style={styles.header}>Add New Room</h1>
-                <form encType="multipart/form-data" method="post" onSubmit={handleOnSubmit}>
-                    <table style={styles.table}>
-                        <tbody>
-                            <tr>
-                                <th><label style={styles.label}>Room ID</label></th>
-                                <td><input onChange={ev => setRoomName(ev.target.value)} style={styles.input} value={rname} required type="text" maxLength={15} title="Room ID should be between 1 to 15 characters" placeholder="Room ID" /></td>
-                            </tr>
-                            <tr>
-                                <th><label style={styles.label}>Room Type</label></th>
-                                <td>
-                                    <select onChange={onOptionChangeHandler} style={styles.input} required title="Choose an option">
-                                        {roomtypes.map((option, index) => (
-                                            <option key={index}>{option}</option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><label style={styles.label}>Number Of Students</label></th>
-                                <td><input onChange={ev => setNumberOfStudents(ev.target.value)} style={styles.input} value={numofstudents} required type="text" maxLength={3} pattern="[0-9]{1,3}" title="Students number should be 1 to 3" placeholder="Number Of Students" /></td>
-                            </tr>
-                            <tr>
-                                <th><label style={styles.label}>Price</label></th>
-                                <td><input onChange={ev => setPrice(ev.target.value)} style={styles.input} value={price} required type="text" maxLength={6} pattern="[0-9]{1,3}" title="Price should be 1 to 5" placeholder="Price" /></td>
-                            </tr>
-                            <tr>
-                                <th><label style={styles.label}>Details</label></th>
-                                <td><textarea rows={5} cols={30} value={details} style={styles.textarea} onChange={ev => setDetails(ev.target.value)} /></td>
-                            </tr>
-                            <tr>
-                                <th colSpan={2}>
-                                    <center>
-                                        <button type="submit" style={styles.button}>Add New Room</button>
-                                    </center>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    <h1 style={{ color: '#333', marginBottom: '20px' }}>Add New Room</h1>
+                    {msg && <div className={isSuccess ? "success-message" : "error-message"}>{msg}</div>}
+                    
+                    <form onSubmit={handleOnSubmit}>
+                        <div className="form-group">
+                            <label>Room ID</label>
+                            <input 
+                                onChange={ev => setRoomName(ev.target.value)} 
+                                value={rname} 
+                                required type="text" maxLength={15} 
+                                placeholder="Room ID" 
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Room Type</label>
+                            <select onChange={onOptionChangeHandler} value={rtype} required>
+                                {roomtypes.map((option, index) => (
+                                    <option key={index} value={option}>{option}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="grid-form">
+                            <div className="form-group">
+                                <label>Number Of Students</label>
+                                <input 
+                                    onChange={ev => setNumberOfStudents(ev.target.value)} 
+                                    value={numofstudents} 
+                                    required type="text" maxLength={3} pattern="[0-9]{1,3}" 
+                                    placeholder="Capacity" 
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Price</label>
+                                <input 
+                                    onChange={ev => setPrice(ev.target.value)} 
+                                    value={price} 
+                                    required type="text" maxLength={6} pattern="[0-9]{1,6}" 
+                                    placeholder="Price per head" 
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Details</label>
+                            <textarea 
+                                rows={4} 
+                                value={details} 
+                                onChange={ev => setDetails(ev.target.value)} 
+                                placeholder="Any specific room features..."
+                            />
+                        </div>
+
+                        <button type="submit" className="btn-premium btn-primary-gradient" style={{ width: '100%', marginTop: '10px' }}>
+                            Save Room
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     );
 }
-
-const styles = {
-    container: {
-        backgroundImage: "url('https://images.unsplash.com/photo-1560185127-6c31048a26c7')", // Replace with your preferred image URL
-        height: "100vh",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    formContainer: {
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
-        padding: "30px",
-        borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        width: "400px",
-    },
-    header: {
-        color: "#333",
-        marginBottom: "20px",
-    },
-    table: {
-        width: "100%",
-    },
-    label: {
-        color: "#333",
-        fontSize: "14px",
-    },
-    input: {
-        width: "100%",
-        padding: "10px",
-        margin: "5px 0",
-        boxSizing: "border-box",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-    },
-    textarea: {
-        width: "100%",
-        padding: "10px",
-        margin: "5px 0",
-        boxSizing: "border-box",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-    },
-    button: {
-        padding: "10px 20px",
-        backgroundColor: "#4CAF50",
-        color: "white",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-        fontSize: "16px",
-    }
-};
 
 export default AdminAddRoom;

@@ -1,4 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import './Landing.css';
 
 function AdminViewRooms() {
     const [data, setData] = useState([]);
@@ -9,33 +10,39 @@ function AdminViewRooms() {
             .catch(err => console.error("Error fetching data: ", err));
     }, []);
     return (
-        <div>
-            <br></br><br></br><br></br><br></br><br></br><br></br>
-            <h2>
-                <center> Admin View Rooms Page </center>
-            </h2>
-            <p>
-                <table style={{ width: '90%', left: '10px', position: 'absolute', border: '1px solid black' }}>
-                    <tr style={{ width: '800px', border: '1px solid black', fontSize: '20px' }}>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Room Id</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Room Type</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Number of Students</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Details</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Price</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Date</th>
-                    </tr>
-                    {data.map(x => (
-                        <tr style={{ width: '800px', fontSize: '20px' }}>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.rid}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.rtype}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.numofstudents}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.details}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.price}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.date}</td>
-                        </tr>
-                    ))}
-                </table>
-            </p>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Available Rooms</h1>
+                    
+                    <div className="table-responsive">
+                        <table className="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Room Id</th>
+                                    <th>Room Type</th>
+                                    <th>Number of Students</th>
+                                    <th>Details</th>
+                                    <th>Price</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((x, index) => (
+                                    <tr key={index}>
+                                        <td>{x.rid}</td>
+                                        <td>{x.rtype}</td>
+                                        <td>{x.numofstudents}</td>
+                                        <td>{x.details}</td>
+                                        <td>{x.price}</td>
+                                        <td>{x.date}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

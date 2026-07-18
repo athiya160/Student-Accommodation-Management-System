@@ -1,4 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import './Landing.css';
 
 function AdminViewStaffs() {
     const [data, setData] = useState([]);
@@ -7,36 +8,43 @@ function AdminViewStaffs() {
           .then(response => response.json()) 
           .then(data => setData(data)) 
           .catch(err => console.error("Error fetching data: ", err)); 
-      }, []); 
-        return (
-            <div>
-                <br></br><br></br><br></br><br></br><br></br><br></br>
-                <h2>
-                <center> Admin View Staffs Page </center>
-                </h2>
-                <p>
-      <table style={{ width: '90%', left: '10px', position: 'absolute', border: '1px solid black'}}>
-        <tr style={{ width: '800px', border: '1px solid black', fontSize:'20px' }}>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>First Name</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Last Name</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Email Id</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Phone Num</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>User Name</th>
-            <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize:'20px' }}>Address</th>
-        </tr>
-        {data.map(x => ( 
-            <tr style={{ width: '800px', fontSize:'20px' }}>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.fname}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.lname}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.email}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.phnum}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.username}</td>
-                <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.address}</td>
-            </tr>
-        ))}
-      </table>
-                </p>
-            </div>    
+    }, []); 
+
+    return (
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Registered Staff Members</h1>
+                    
+                    <div className="table-responsive">
+                        <table className="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Num</th>
+                                    <th>Username</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((x, index) => ( 
+                                    <tr key={index}>
+                                        <td>{x.fname}</td>
+                                        <td>{x.lname}</td>
+                                        <td>{x.email}</td>
+                                        <td>{x.phnum}</td>
+                                        <td>{x.username}</td>
+                                        <td>{x.address}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 export default AdminViewStaffs;
