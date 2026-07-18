@@ -4,10 +4,10 @@
 
 > A state-of-the-art, full-stack MERN web application designed to automate and streamline hostel management operations with a premium, glassmorphism UI.
 
-## ?? Project Overview
+## 🌟 Project Overview
 The **Online Hostel Management System** is a comprehensive solution built to handle the complex daily operations of student accommodations. Designed with a focus on **User Experience (UX)** and **Performance**, this application provides dedicated, secure portals for Administrators, Staff, and Students.
 
-## ?? Key Features
+## 🚀 Key Features
 - **Premium UI/UX**: State-of-the-art glassmorphism design, responsive layouts, dynamic panning gradients, and subtle micro-animations for an exceptional user experience.
 - **Distinct Portals**: Unique, themed login portals for Admin (Dark/Crimson), Staff (Teal/Emerald), and Students (Ocean Blue).
 - **Admin Dashboard**: Manage rooms, messes, staff, users, view reports, and allocate resources seamlessly using modern data grids.
@@ -15,30 +15,12 @@ The **Online Hostel Management System** is a comprehensive solution built to han
 - **Student Portal**: View personal profiles, track room/mess allocations, and raise complaints quickly and efficiently.
 - **Robust Authentication**: Secure, role-based access control ensuring data privacy across all user types.
 
-## ?? UI Showcase
-
-### Home Page
-![Home Page](./home%20page.png)
-*The landing page features a dynamic, panning gradient hero section and a clean overview of the system capabilities.*
-
-### Admin Portal
-![Admin Login](./admin-login.png)
-*The Admin login portal utilizes a striking dark/crimson theme to establish authority and focus.*
-
-### Staff Portal
-![Staff Login](./staff-login.png)
-*The Staff login portal features a professional teal/emerald theme, blending perfectly with the glassmorphism card.*
-
-### Student Portal
-![Student Login](./student-login.png)
-*The Student login portal retains a vibrant, welcoming ocean blue theme.*
-
-## ?? Tech Stack
+## 💻 Tech Stack
 - **Frontend**: React.js, React Router, Axios, CSS (Custom Glassmorphism & Animations)
 - **Backend**: Node.js, Express.js, RESTful APIs
 - **Database**: MongoDB, Mongoose ODM
 
-## ?? How to Run Locally
+## ⚙️ How to Run Locally
 
 ### Prerequisites
 - Node.js installed on your machine
