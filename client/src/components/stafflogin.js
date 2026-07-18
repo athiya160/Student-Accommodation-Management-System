@@ -27,7 +27,7 @@ function StaffLogin() {
                     }
                 })
                 result = await result.json();
-                if (result != undefined && Object.keys(result).length > 0) {
+                if (result !== undefined && Object.keys(result).length > 0) {
                     sessionStorage.setItem("usertype", "staff")
                     sessionStorage.setItem("staffid", result['_id'])
                     let path = '/staffmainpage';

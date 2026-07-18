@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import './normalize.css'
 import {
@@ -6,7 +5,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Home from './components/home';
 import About from './components/about';
 import Services from './components/services';
 import Gallery from './components/gallery';
@@ -17,7 +15,6 @@ import Contact from './components/contact';
 import NewUser from './components/newuser';
 import NewAdminRegister from './components/newadminregister';
 import NewStaffRegister from './components/newstaffregister';
-import Header from './components/header';
 import AdminAddStaff from './components/adminaddstaff';
 import LogoutPage from './components/logout';
 import UserViewProfile from './components/userviewprofile';
@@ -57,8 +54,8 @@ function App() {
     </div>
   );
   */
- console.log("User Type : ", sessionStorage.getItem('usertype'))
-  if(sessionStorage.getItem('usertype')==null){
+console.log("User Type : ", sessionStorage.getItem('usertype'))
+  if(sessionStorage.getItem('usertype') === null){
     return (
       <Router>
         <CommonHeader />  
@@ -94,7 +91,7 @@ function App() {
         //  </Router>
      );
    }
-   else if(sessionStorage.getItem('usertype')=='staff'){
+   else if(sessionStorage.getItem('usertype') === 'staff'){
     return (
          <Router>
              <StaffHeader />
@@ -115,7 +112,7 @@ function App() {
          </Router>
      );
    }
-  else if(sessionStorage.getItem('usertype')=='admin'){
+  else if(sessionStorage.getItem('usertype') === 'admin'){
     return (
          <Router>
              <AdminHeader />
@@ -137,7 +134,7 @@ function App() {
          </Router>
      );
    }
-   else if(sessionStorage.getItem('usertype')=='user'){
+   else if(sessionStorage.getItem('usertype') === 'user'){
     return (
          <Router>
              <UserHeader />

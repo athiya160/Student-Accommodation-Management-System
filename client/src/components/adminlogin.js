@@ -27,7 +27,7 @@ function AdminLogin() {
                 });
                 result = await result.json();
                 
-                if (result != undefined && Object.keys(result).length > 0) {
+                if (result !== undefined && Object.keys(result).length > 0) {
                     sessionStorage.setItem("usertype", "admin");
                     sessionStorage.setItem("adminid", result['_id']);
                     let path = '/'; // Goes back to home but as admin

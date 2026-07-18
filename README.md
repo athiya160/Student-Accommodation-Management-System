@@ -1,5 +1,7 @@
 # Online Hostel Management System
 
+![Hostel Dashboard Concept](https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=2069&ixlib=rb-4.0.3)
+
 A full-stack MERN (MongoDB, Express, React, Node.js) web application for managing a hostel.
 
 ## Features

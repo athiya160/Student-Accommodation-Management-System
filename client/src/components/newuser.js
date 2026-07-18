@@ -14,13 +14,8 @@ function NewUser() {
     const [mothername, setMotherName] = useState("");
     const [parentphnum, setParentPhNum] = useState("");
     const [parentaddress, setParentAddress] = useState("");
-    const [photo, setPhoto] = useState("");
     const [msg, setMsg] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
-
-    const handleFileSelect = (event) => {
-        setPhoto(event.target.files[0])
-    }
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
