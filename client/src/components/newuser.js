@@ -33,8 +33,8 @@ function NewUser() {
             setMsg("Please provide a valid Last Name");
         } else if (email === "" || !validateEmail(email)) {
             setMsg("Invalid Email");
-        } else if (phnum === "" || !phnum.match('^\\+?[0-9\\s-]{10,15}$')) {
-            setMsg("Please provide a valid phone number (10-15 digits)");
+        } else if (phnum === "" || !phnum.match('^\\+?[0-9\\s\\-()]{10,20}$')) {
+            setMsg("Please provide a valid phone number (10-20 digits)");
         } else if (username === "") {
             setMsg("User Name is Empty");
         } else if (password === "") {
@@ -43,8 +43,8 @@ function NewUser() {
             setMsg("Father Name is Empty");
         } else if (mothername === "") {
             setMsg("Mother Name is Empty");
-        } else if (parentphnum === "" || !parentphnum.match('^\\+?[0-9\\s-]{10,15}$')) {
-            setMsg("Please provide a valid Parent Phone Number (10-15 digits)");
+        } else if (parentphnum === "" || !parentphnum.match('^\\+?[0-9\\s\\-()]{10,20}$')) {
+            setMsg("Please provide a valid Parent Phone Number (10-20 digits)");
         } else {
             let roomallocated = "No";
             let messallocated = "No";
@@ -123,7 +123,7 @@ function NewUser() {
                                     <input
                                         value={phnum}
                                         onChange={ev => setPhoneNum(ev.target.value)}
-                                        type="text" placeholder="Phone Number" maxLength={15} required
+                                        type="text" placeholder="Phone Number" maxLength={20} required
                                     />
                                 </div>
                                 <div className="form-group">
@@ -167,7 +167,7 @@ function NewUser() {
                                     <input
                                         value={parentphnum}
                                         onChange={ev => setParentPhNum(ev.target.value)}
-                                        type="text" placeholder="Parent Phone Number" maxLength={15} required
+                                        type="text" placeholder="Parent Phone Number" maxLength={20} required
                                     />
                                 </div>
                                 <div className="form-group">
