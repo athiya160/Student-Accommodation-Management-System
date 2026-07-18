@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Header</title>
+  <link rel="stylesheet" href="%PUBLIC_URL%/Header.css">
+</head>
+<body>
+  <header id="header">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo">
+        <h1>Online Hostel Management System</h1>
+      </a>
+      <nav id="navmenu">
+        <ul class="nav-list">
+          <li><a href="/home" class="active">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/services">Our Services</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/newuser">New User</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+              <span>Login</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/adminlogin">Admin Login</a></li>
+              <li><a href="/stafflogin">Staff Login</a></li>
+              <li><a href="/userlogin">User Login</a></li>
+            </ul>
+          </li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</body>
+</html>
