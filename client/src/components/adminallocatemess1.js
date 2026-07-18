@@ -1,9 +1,12 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import './Landing.css';
+
 const AdminAllocateMess1 = (props) => {    
     const [dbdata, setDbdata] = useState('');
     const [data, setData] = useState([]);
+    
     useEffect(() => {
         fetch('http://localhost:5000/api/mess/get')
             .then(response => response.json())
@@ -11,146 +14,102 @@ const AdminAllocateMess1 = (props) => {
             .catch(err => console.error("Error fetching data: ", err));
     }, []);
 
-
-    let userid = sessionStorage.getItem('userid').toString()
-    console.log("User Id : ", userid)
+    let userid = sessionStorage.getItem('userid').toString();
+    
     useEffect(() => {
         axios.get('http://localhost:5000/api/user/get/' + userid)
             .then(res => {
                 setDbdata(res.data);
-                console.log("Response : ", res.data)
             })
-    }, []);
-    /*
-    function getStudentDetails() {
-        useEffect(() => {
-            axios.get('http://localhost:5000/userviewprofile/' + userid)
-                .then(res => {
-                    setStudentdata(res.data);
-                    console.log("Student Response : ", res.data)
-                })
-        }, []);
-    }
-    function getRoomDetails(id) {
-        useEffect(() => {
-            axios.get('http://localhost:5000/getroomdetails/' + id)
-                .then(res => {
-                    setRoomdata(res.data);
-                    console.log("Room Response : ", res.data)
-                })
-        }, []);
-    }
-    */    
+    }, [userid]);
+    
     const navigate = useNavigate();
+    
     const handleClick = (id) => async (e) => {        
         sessionStorage.setItem("messid", id)
-        console.log("Selected Mess")
-        //alert("Update Function")
         let path = '/adminallocatemess2';
         navigate(path);
         window.location.reload(false);
-        //getStudentDetails();
-        //getRoomDetails(id)
-        /*
-        let result = await fetch(
-            'http://localhost:5000/allocatenewroom', {
-                method: "post",
-                body: JSON.stringify({ fname, lname, email, phnum, username, 
-                    password, address }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            result = await result.json();
-            console.warn(result);
-            if (result) {
-                alert("Data saved succesfully");
-                setEmail("");
-                setFirstName("");
-            }
-            */
     };
 
     return (
-        <div>
-            <br></br><br></br><br></br><br></br><br></br>
-            
-                <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    User Details</h2>
-            
-            <p><br></br><br></br><br></br>
-                <table style={{
-                    width: '40%', left: '150px', top: '250px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>User Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>First Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['fname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Last Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['lname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Email Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['email']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Phone Number</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['phnum']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Address</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['address']}</td>
-                    </tr>
-                </table>
-            </p>
+        <div className="landing-wrapper">
+            <div className="dashboard-container" style={{ gap: '30px', display: 'flex', flexDirection: 'column' }}>
+                <div className="dashboard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    <h2 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Selected User Details</h2>
+                    <div className="table-responsive">
+                        <table className="modern-table profile-table">
+                            <tbody>
+                                <tr>
+                                    <th style={{ width: '40%' }}>User Id</th>
+                                    <td>{dbdata['_id']}</td>
+                                </tr>
+                                <tr>
+                                    <th>First Name</th>
+                                    <td>{dbdata['fname']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <td>{dbdata['lname']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email Id</th>
+                                    <td>{dbdata['email']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <td>{dbdata['phnum']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{dbdata['address']}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-            
-            <p>
-            
-                <table style={{ width: '90%', left: '10px',  top: '650px', position: 'absolute', border: '1px solid black' }}>
-                    <tr>
-                        <th colSpan={7}>
-                        <h2>
-                <center> Staff Select Mess for Student </center>
-            </h2>
-                        </th>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black', fontSize: '20px' }}>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Mess Name</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Mess Type</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Number of Students</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Details</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Price</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Date</th>
-                        <th style={{ width: '200px', textAlign: 'center', border: '1px solid black', fontSize: '20px' }}>Select Room</th>
-                    </tr>
-                    {data.map(x => (
-                        <tr style={{ width: '800px', fontSize: '20px' }}>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.mname}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.mtype}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.numofstudents}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.details}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.price}</td>
-                            <td style={{ width: '200px', textAlign: 'center', border: '1px solid black' }}>{x.date}</td>
-                            <td style={{ width: '250px', textAlign: 'center', border: '1px solid black' }}>
-                                <button style={{ height: '50px', width: '200px' }}
-                                    onClick={handleClick(x._id)}>Select Mess</button>
-                            </td>
-                        </tr>
-                    ))}
-                </table>
-            </p>
+                <div className="dashboard-card wide">
+                    <h2 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Step 2: Select Mess for Student</h2>
+                    <div className="table-responsive">
+                        <table className="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Mess Name</th>
+                                    <th>Mess Type</th>
+                                    <th>Number of Students</th>
+                                    <th>Details</th>
+                                    <th>Price</th>
+                                    <th>Date</th>
+                                    <th>Select Mess</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((x, index) => (
+                                    <tr key={index}>
+                                        <td>{x.mname}</td>
+                                        <td>{x.mtype}</td>
+                                        <td>{x.numofstudents}</td>
+                                        <td>{x.details}</td>
+                                        <td>{x.price}</td>
+                                        <td>{x.date}</td>
+                                        <td>
+                                            <button 
+                                                className="btn-submit"
+                                                style={{ padding: '8px 15px', fontSize: '14px', width: 'auto' }}
+                                                onClick={handleClick(x._id)}>
+                                                Select Mess
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
+
 export default AdminAllocateMess1;

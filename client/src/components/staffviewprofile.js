@@ -1,57 +1,58 @@
-import React from "react";
-import { useEffect } from 'react';
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import './Landing.css';
 
 function StaffViewProfile() {
     const [dbdata, setDbdata] = useState('');
     let staffid = sessionStorage.getItem('staffid').toString()
-    console.log("Staff Id : ", staffid)
+    
     useEffect(() => {
         axios.get('http://localhost:5000/api/staff/get/' + staffid)
             .then(res => {
                 setDbdata(res.data);
-                console.log("Response : ", res.data)
             })
-    }, []);
+    }, [staffid]);
 
     return (
-        <div>
-            <center>
-                <h2>Staff View Profile</h2>
-            </center>
-            <p>
-                <table style={{
-                    width: '40%', left: '150px', top: '150px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>User Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>First Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['fname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Last Name</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['lname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Email Id</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['email']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Phone Number</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['phnum']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Address</th>
-                        <td style={{ border: '1px solid black' }}>{dbdata['address']}</td>
-                    </tr>
-                </table>
-            </p>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Staff Profile Details</h1>
+                    
+                    <div className="table-responsive">
+                        <table className="modern-table profile-table">
+                            <tbody>
+                                <tr>
+                                    <th style={{ width: '40%' }}>User Id</th>
+                                    <td>{dbdata['_id']}</td>
+                                </tr>
+                                <tr>
+                                    <th>First Name</th>
+                                    <td>{dbdata['fname']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Name</th>
+                                    <td>{dbdata['lname']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email Id</th>
+                                    <td>{dbdata['email']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <td>{dbdata['phnum']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{dbdata['address']}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
+
 export default StaffViewProfile;

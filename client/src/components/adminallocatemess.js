@@ -1,180 +1,78 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import './Landing.css';
 
-function UserViewReports() {
+function AdminAllocateMess() {
     const [data, setData] = useState([]);
-    const [messdata, setMessData] = useState([]);
-    let userid = sessionStorage.getItem('userid').toString();
     
     useEffect(() => {
-        fetch('http://localhost:5000/api/newroomallocate/get/' + userid)
+        fetch('http://localhost:5000/api/user/get')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(err => console.error("Error fetching data: ", err));
-    }, [userid]);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/api/newmessallocate/get/' + userid)
-            .then(response => response.json())
-            .then(messdata => setMessData(messdata))
-            .catch(err => console.error("Error fetching data: ", err));
-    }, [userid]);
-
-    const handleOnSubmit = async (e) => {
-        e.preventDefault();
-        window.print();
-    };
-
-    const styles = {
-        container: {
-            backgroundImage: "url('https://images.unsplash.com/photo-1564959130733-8cf51d0f4a0e')", // Background image related to hostel or dormitory
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            minHeight: "100vh",
-            padding: "50px 0",
-        },
-        content: {
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            margin: "0 auto",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            width: "80%",
-        },
-        heading: {
-            textAlign: "center",
-            color: "#333",
-            marginBottom: "20px",
-        },
-        table: {
-            width: "100%",
-            borderCollapse: "collapse",
-            marginBottom: "30px",
-        },
-        th: {
-            textAlign: "center",
-            padding: "10px",
-            border: "1px solid black",
-            backgroundColor: "#f2f2f2",
-            fontSize: "18px",
-        },
-        td: {
-            textAlign: "center",
-            padding: "10px",
-            border: "1px solid black",
-            fontSize: "16px",
-        },
-        invoiceTable: {
-            width: "30%",
-            margin: "20px auto",
-            borderCollapse: "collapse",
-            border: "1px solid black",
-        },
-        invoiceTh: {
-            padding: "10px",
-            textAlign: "center",
-            border: "1px solid black",
-            backgroundColor: "#f2f2f2",
-            fontSize: "18px",
-        },
-        invoiceTd: {
-            padding: "10px",
-            textAlign: "center",
-            border: "1px solid black",
-            fontSize: "16px",
-        },
-        buttonContainer: {
-            textAlign: "center",
-            marginTop: "20px",
-        },
-        button: {
-            padding: "10px 20px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
-        }
+    }, []);
+    
+    const navigate = useNavigate();
+    
+    const handleClick = (id) => () => {
+        sessionStorage.setItem("userid", id)
+        console.log("Select Student for Mess")
+        let path = '/adminallocatemess1';
+        navigate(path);
+        window.location.reload(false);
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.content}>
-                <h2 style={styles.heading}>User View Allocated Room Reports Page</h2>
-                <table style={styles.table}>
-                    <tr>
-                        <th style={styles.th}>First Name</th>
-                        <th style={styles.th}>Last Name</th>
-                        <th style={styles.th}>Email Id</th>
-                        <th style={styles.th}>Phone Num</th>
-                        <th style={styles.th}>Room ID</th>
-                        <th style={styles.th}>Room Type</th>
-                        <th style={styles.th}>Room Price</th>
-                        <th style={styles.th}>Details</th>
-                    </tr>
-                    <tr>
-                        <td style={styles.td}>{data['fname']}</td>
-                        <td style={styles.td}>{data['lname']}</td>
-                        <td style={styles.td}>{data['email']}</td>
-                        <td style={styles.td}>{data['phnum']}</td>
-                        <td style={styles.td}>{data['rname']}</td>
-                        <td style={styles.td}>{data['rtype']}</td>
-                        <td style={styles.td}>{data['price']}</td>
-                        <td style={styles.td}>{data['details']}</td>
-                    </tr>
-                </table>
-
-                <h2 style={styles.heading}>User View Allocated Mess Reports Page</h2>
-                <table style={styles.table}>
-                    <tr>
-                        <th style={styles.th}>First Name</th>
-                        <th style={styles.th}>Last Name</th>
-                        <th style={styles.th}>Email Id</th>
-                        <th style={styles.th}>Phone Num</th>
-                        <th style={styles.th}>Mess Name</th>
-                        <th style={styles.th}>Mess Type</th>
-                        <th style={styles.th}>Mess Price</th>
-                        <th style={styles.th}>Details</th>
-                    </tr>
-                    <tr>
-                        <td style={styles.td}>{messdata['fname']}</td>
-                        <td style={styles.td}>{messdata['lname']}</td>
-                        <td style={styles.td}>{messdata['email']}</td>
-                        <td style={styles.td}>{messdata['phnum']}</td>
-                        <td style={styles.td}>{messdata['mname']}</td>
-                        <td style={styles.td}>{messdata['mtype']}</td>
-                        <td style={styles.td}>{messdata['price']}</td>
-                        <td style={styles.td}>{messdata['details']}</td>
-                    </tr>
-                </table>
-
-                <table style={styles.invoiceTable}>
-                    <tr>
-                        <th colSpan={2} style={styles.invoiceTh}>
-                            <h4>Invoice</h4>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th style={styles.invoiceTh}>Mess Price</th>
-                        <td style={styles.invoiceTd}>{messdata['price']}</td>
-                    </tr>
-                    <tr>
-                        <th style={styles.invoiceTh}>Room Price</th>
-                        <td style={styles.invoiceTd}>{data['price']}</td>
-                    </tr>
-                    <tr>
-                        <th style={styles.invoiceTh}>Total Amount</th>
-                        <td style={styles.invoiceTd}>{parseInt(data['price']) + parseInt(messdata['price'])}</td>
-                    </tr>
-                </table>
-
-                <div style={styles.buttonContainer}>
-                    <button style={styles.button} onClick={handleOnSubmit}>Print Invoice</button>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Step 1: Select Student for Mess Allocation</h1>
+                    
+                    <div className="table-responsive">
+                        <table className="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email Id</th>
+                                    <th>Phone Num</th>
+                                    <th>User Name</th>
+                                    <th>Address</th>
+                                    <th>Select Student</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((x, index) => (
+                                    <tr key={index}>
+                                        <td>{x.fname}</td>
+                                        <td>{x.lname}</td>
+                                        <td>{x.email}</td>
+                                        <td>{x.phnum}</td>
+                                        <td>{x.username}</td>
+                                        <td>{x.address}</td>
+                                        <td>
+                                            {
+                                                x.messallocated === 'No' ? (
+                                                    <button 
+                                                        className="btn-submit" 
+                                                        style={{ padding: '8px 15px', fontSize: '14px', width: 'auto' }}
+                                                        onClick={handleClick(x._id)}>
+                                                        Select Student
+                                                    </button>
+                                                ) : (
+                                                    <span style={{ color: '#4CAF50', fontWeight: 'bold' }}>Allocated</span>
+                                                )
+                                            } 
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default UserViewReports;
+export default AdminAllocateMess;

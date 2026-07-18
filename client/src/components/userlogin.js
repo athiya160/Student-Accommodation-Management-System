@@ -51,7 +51,7 @@ function UserLogin() {
 
     return (      
         <div className="landing-wrapper">
-            <div className="auth-page">
+            <div className="auth-page student-theme">
                 <div className="auth-card">
                     <h1>Student Login</h1>
                     {msg && <div className="error-message">{msg}</div>}

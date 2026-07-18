@@ -52,7 +52,7 @@ function AdminLogin() {
 
     return (
         <div className="landing-wrapper">
-            <div className="auth-page">
+            <div className="auth-page admin-theme">
                 <div className="auth-card">
                     <h1>Admin Login</h1>
                     {msg && <div className="error-message">{msg}</div>}

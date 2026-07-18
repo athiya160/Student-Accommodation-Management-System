@@ -1,29 +1,30 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import './Landing.css';
+
 const AdminAllocateMess2 = (props) => {
     const [studentdata, setStudentdata] = useState('');
     const [messdata, setMessdata] = useState('');
-    let userid = sessionStorage.getItem('userid').toString()
-    let messid = sessionStorage.getItem('messid').toString()
+    let userid = sessionStorage.getItem('userid').toString();
+    let messid = sessionStorage.getItem('messid').toString();
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/user/get/' + userid)
             .then(res => {
                 setStudentdata(res.data);
-                console.log("Student Response : ", res.data)
-                //console.log("First Name : ", studentdata['fname'])
             })
-    }, []);
+    }, [userid]);
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/mess/get/' + messid)
             .then(res => {
                 setMessdata(res.data);
-                console.log("Mess Response : ", res.data)
             })
-    }, []);
+    }, [messid]);
+    
     const navigate = useNavigate();
+    
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         let fname = studentdata['fname']
@@ -34,102 +35,104 @@ const AdminAllocateMess2 = (props) => {
         let mtype = messdata['mtype']
         let details = messdata['details']
         let price = messdata['price']
-        let result = await fetch(
-        'http://localhost:5000/api/newmessallocate/add', {
+        
+        let result = await fetch('http://localhost:5000/api/newmessallocate/add', {
             method: "post",
-            body: JSON.stringify({ userid, messid, fname, lname, email, phnum, mname, 
-				mtype, details, price }),
+            body: JSON.stringify({ userid, messid, fname, lname, email, phnum, mname, mtype, details, price }),
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
         result = await result.json();
-        console.warn(result);
+        
         if (result) {
-            alert("Data saved succesfully");
+            alert("Mess Successfully Allocated!");
             let path = '/staffviewreports';
-			navigate(path);
-			window.location.reload(false);
+            navigate(path);
+            window.location.reload(false);
         }
     }
-    //handleOnSubmit();
+
     return (
-        <div>
-            <br></br><br></br><br></br><br></br><br></br>
-            <center>
-    <h3>Staff Confirm Mess For the Student</h3></center>    
-    <div style={{width:'300px', height:'200px', border:'1px solid black;'}}>
-    <br></br>
-    <table style={{
-                    width: '40%', left: '150px', top: '250px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>User Id</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>First Name</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['fname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Last Name</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['lname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Email Id</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['email']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Phone Number</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['phnum']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Address</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['address']}</td>
-                    </tr>
-                </table>
-    </div>
-    <div style={{width:'300px', height:'200px', border:'1px solid black;'}}>
-    <table style={{
-                    width: '40%', left: '850px', top: '250px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Mess Id</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Mess Name</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['mname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Mess Type</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['mtype']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Number Of Students</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['numofstudents']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Mess Price</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['price']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Details</th>
-                        <td style={{ border: '1px solid black' }}>{messdata['details']}</td>
-                    </tr>                   
-                </table>
-    </div>
-    <form encType="multipart/form-data" method="post">
-    <center>
-                <button onClick={handleOnSubmit} type="submit" 
-                style={{width:'400px', height:'75px', fontSize:'20px'}}>
-                  Apply Mess To Student
-                </button>				
-              </center>
-    </form>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Step 3: Confirm Mess Allocation</h1>
+                    <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>Please review the student and mess details before confirming the allocation.</p>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '30px' }}>
+                        {/* Student Details Card */}
+                        <div className="dashboard-card" style={{ padding: '20px', boxShadow: 'none', border: '1px solid #eee' }}>
+                            <h3 style={{ borderBottom: '2px solid #4CAF50', paddingBottom: '10px', marginBottom: '15px' }}>Student Details</h3>
+                            <table className="modern-table profile-table">
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: '40%' }}>User Id</th>
+                                        <td>{studentdata['_id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{studentdata['fname']} {studentdata['lname']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{studentdata['email']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{studentdata['phnum']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{studentdata['address']}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Mess Details Card */}
+                        <div className="dashboard-card" style={{ padding: '20px', boxShadow: 'none', border: '1px solid #eee' }}>
+                            <h3 style={{ borderBottom: '2px solid #2196F3', paddingBottom: '10px', marginBottom: '15px' }}>Mess Details</h3>
+                            <table className="modern-table profile-table">
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: '40%' }}>Mess Id</th>
+                                        <td>{messdata['_id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mess Name</th>
+                                        <td>{messdata['mname']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mess Type</th>
+                                        <td>{messdata['mtype']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Capacity</th>
+                                        <td>{messdata['numofstudents']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Price</th>
+                                        <td><span style={{ color: '#4CAF50', fontWeight: 'bold' }}>₹{messdata['price']}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Details</th>
+                                        <td>{messdata['details']}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleOnSubmit} style={{ textAlign: 'center' }}>
+                        <button type="submit" className="btn-submit" style={{ padding: '15px 40px', fontSize: '18px', width: 'auto' }}>
+                            Confirm & Allocate Mess
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
+
 export default AdminAllocateMess2;

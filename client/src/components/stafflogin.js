@@ -44,7 +44,7 @@ function StaffLogin() {
 
     return (
         <div className="landing-wrapper">
-            <div className="auth-page">
+            <div className="auth-page staff-theme">
                 <div className="auth-card">
                     <h1>Staff Login</h1>
                     {msg && <div className="error-message">{msg}</div>}

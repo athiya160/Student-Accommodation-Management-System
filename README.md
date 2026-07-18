@@ -3,9 +3,11 @@
 A full-stack MERN (MongoDB, Express, React, Node.js) web application for managing a hostel.
 
 ## Features
-- **Admin Dashboard**: Manage rooms, messes, staff, users, view reports, and allocate resources.
-- **Staff Dashboard**: View profile, assigned duties, and reports.
-- **User Dashboard**: View profile, reports, and raise complaints.
+- **Premium UI/UX**: State-of-the-art glassmorphism design, responsive layouts, dynamic panning gradients, and subtle micro-animations for an exceptional user experience.
+- **Distinct Portals**: Unique, themed login portals for Admin (Dark/Crimson), Staff (Teal/Emerald), and Students (Ocean Blue).
+- **Admin Dashboard**: Manage rooms, messes, staff, users, view reports, and allocate resources seamlessly using modern data grids.
+- **Staff Dashboard**: View profile, assigned duties, and reports in a beautiful dashboard grid.
+- **User Dashboard**: View profile, reports, and raise complaints quickly and efficiently.
 - **Authentication**: Role-based access control (Admin, Staff, User).
 
 ## Tech Stack

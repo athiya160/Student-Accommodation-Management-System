@@ -1,29 +1,30 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import './Landing.css';
+
 const AdminAllocateRoom2 = (props) => {
     const [studentdata, setStudentdata] = useState('');
     const [roomdata, setRoomdata] = useState('');
-    let userid = sessionStorage.getItem('userid').toString()
-    let roomid = sessionStorage.getItem('roomid').toString()
+    let userid = sessionStorage.getItem('userid').toString();
+    let roomid = sessionStorage.getItem('roomid').toString();
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/user/get/' + userid)
             .then(res => {
                 setStudentdata(res.data);
-                console.log("Student Response : ", res.data)
-                //console.log("First Name : ", studentdata['fname'])
             })
-    }, []);
+    }, [userid]);
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/room/get/' + roomid)
             .then(res => {
                 setRoomdata(res.data);
-                console.log("Room Response : ", res.data)
             })
-    }, []);
+    }, [roomid]);
+    
     const navigate = useNavigate();
+    
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         let fname = studentdata['fname']
@@ -34,102 +35,104 @@ const AdminAllocateRoom2 = (props) => {
         let rtype = roomdata['rtype']
         let details = roomdata['details']
         let price = roomdata['price']
-        let result = await fetch(
-        'http://localhost:5000/api/newroomallocate/add', {
+        
+        let result = await fetch('http://localhost:5000/api/newroomallocate/add', {
             method: "post",
-            body: JSON.stringify({ userid, roomid, fname, lname, email, phnum, rname, 
-				rtype, details, price }),
+            body: JSON.stringify({ userid, roomid, fname, lname, email, phnum, rname, rtype, details, price }),
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
         result = await result.json();
-        console.warn(result);
+        
         if (result) {
-            alert("Data saved succesfully");
+            alert("Room Successfully Allocated!");
             let path = '/staffviewreports';
-			navigate(path);
-			window.location.reload(false);
+            navigate(path);
+            window.location.reload(false);
         }
     }
-    //handleOnSubmit();
+
     return (
-        <div>
-            <br></br><br></br><br></br><br></br><br></br>
-            <center>
-    <h3>Staff Confirm Room For the Student</h3></center>    
-    <div style={{width:'300px', height:'200px', border:'1px solid black;'}}>
-    <br></br>
-    <table style={{
-                    width: '40%', left: '150px', top: '250px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>User Id</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>First Name</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['fname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Last Name</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['lname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Email Id</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['email']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Phone Number</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['phnum']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Address</th>
-                        <td style={{ border: '1px solid black' }}>{studentdata['address']}</td>
-                    </tr>
-                </table>
-    </div>
-    <div style={{width:'300px', height:'200px', border:'1px solid black;'}}>
-    <table style={{
-                    width: '40%', left: '850px', top: '250px', height: '350px', position: 'absolute',
-                    border: '1px solid black', textAlign: 'center', fontSize: '20px'
-                }}>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Room Id</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['_id']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Room ID</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['rname']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Room Type</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['rtype']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Number Of Students</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['numofstudents']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Room Price</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['price']}</td>
-                    </tr>
-                    <tr style={{ width: '800px', border: '1px solid black' }}>
-                        <th style={{ border: '1px solid black' }}>Details</th>
-                        <td style={{ border: '1px solid black' }}>{roomdata['details']}</td>
-                    </tr>                   
-                </table>
-    </div>
-    <form encType="multipart/form-data" method="post">
-    <center>
-                <button onClick={handleOnSubmit} type="submit" 
-                style={{width:'400px', height:'75px', fontSize:'20px'}}>
-                  Apply Room To Student
-                </button>				
-              </center>
-    </form>
+        <div className="landing-wrapper">
+            <div className="dashboard-container">
+                <div className="dashboard-card wide">
+                    <h1 style={{ color: '#333', marginBottom: '20px', textAlign: 'center' }}>Step 3: Confirm Room Allocation</h1>
+                    <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>Please review the student and room details before confirming the allocation.</p>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '30px' }}>
+                        {/* Student Details Card */}
+                        <div className="dashboard-card" style={{ padding: '20px', boxShadow: 'none', border: '1px solid #eee' }}>
+                            <h3 style={{ borderBottom: '2px solid #4CAF50', paddingBottom: '10px', marginBottom: '15px' }}>Student Details</h3>
+                            <table className="modern-table profile-table">
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: '40%' }}>User Id</th>
+                                        <td>{studentdata['_id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>{studentdata['fname']} {studentdata['lname']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{studentdata['email']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{studentdata['phnum']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{studentdata['address']}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Room Details Card */}
+                        <div className="dashboard-card" style={{ padding: '20px', boxShadow: 'none', border: '1px solid #eee' }}>
+                            <h3 style={{ borderBottom: '2px solid #2196F3', paddingBottom: '10px', marginBottom: '15px' }}>Room Details</h3>
+                            <table className="modern-table profile-table">
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: '40%' }}>Room Id</th>
+                                        <td>{roomdata['_id']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Room ID</th>
+                                        <td>{roomdata['rname']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Room Type</th>
+                                        <td>{roomdata['rtype']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Capacity</th>
+                                        <td>{roomdata['numofstudents']}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Price</th>
+                                        <td><span style={{ color: '#4CAF50', fontWeight: 'bold' }}>₹{roomdata['price']}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Details</th>
+                                        <td>{roomdata['details']}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleOnSubmit} style={{ textAlign: 'center' }}>
+                        <button type="submit" className="btn-submit" style={{ padding: '15px 40px', fontSize: '18px', width: 'auto' }}>
+                            Confirm & Allocate Room
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
+
 export default AdminAllocateRoom2;
