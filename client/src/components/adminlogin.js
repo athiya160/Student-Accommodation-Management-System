@@ -9,18 +9,43 @@ function AdminLogin() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        sessionStorage.setItem("usertype", "admin");
+        setMsg("");
+        
         if (username === "" || password === "") {
             setMsg("UserName/Password is Empty");
         } else {
-            if (username === "admin" && password === "admin") {
-                let path = '/';
-                navigate(path);
-                window.location.reload(false);
-            } else {
-                setMsg("Invalid UserName/Password");
+            try {
+                let result = await fetch(
+                    'http://localhost:5000/api/admin/checkadminlogin', {
+                    method: "post",
+                    body: JSON.stringify({ username, password }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                result = await result.json();
+                
+                if (result != undefined && Object.keys(result).length > 0) {
+                    sessionStorage.setItem("usertype", "admin");
+                    sessionStorage.setItem("adminid", result['_id']);
+                    let path = '/'; // Goes back to home but as admin
+                    navigate(path);
+                    window.location.reload(false);
+                } else {
+                    setMsg("Invalid UserName/Password");
+                }
+            } catch (err) {
+                // Fallback for hardcoded admin if DB is empty or fails
+                if (username === "admin" && password === "admin") {
+                    sessionStorage.setItem("usertype", "admin");
+                    let path = '/';
+                    navigate(path);
+                    window.location.reload(false);
+                } else {
+                    setMsg("Invalid UserName/Password");
+                }
             }
         }
     };
@@ -61,8 +86,9 @@ function AdminLogin() {
                     </form>
 
                     <div className="auth-links">
-                        <a href="/newuser">New Student Registration</a>
+                        <a href="/newadminregister">New Admin Registration</a>
                         <a href="/userlogin">Student Login</a>
+                        <a href="/stafflogin">Staff Login</a>
                     </div>
                 </div>
             </div>

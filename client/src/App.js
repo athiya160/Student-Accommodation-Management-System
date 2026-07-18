@@ -15,6 +15,8 @@ import UserLogin from './components/userlogin';
 import StaffLogin from './components/stafflogin';
 import Contact from './components/contact';
 import NewUser from './components/newuser';
+import NewAdminRegister from './components/newadminregister';
+import NewStaffRegister from './components/newstaffregister';
 import Header from './components/header';
 import AdminAddStaff from './components/adminaddstaff';
 import LogoutPage from './components/logout';
@@ -68,6 +70,8 @@ function App() {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/newuser" element={<NewUser />} />
+                <Route path="/newadminregister" element={<NewAdminRegister />} />
+                <Route path="/newstaffregister" element={<NewStaffRegister />} />
                 <Route path="/adminlogin" element={<AdminLogin />} />
                 <Route path="/userlogin" element={<UserLogin />} />
                 <Route path="/stafflogin" element={<StaffLogin />} />

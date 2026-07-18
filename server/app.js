@@ -423,6 +423,7 @@ const user = require('./routes/newuser');
 const room = require('./routes/room');
 const staff = require('./routes/newstaff');
 const complaint = require('./routes/newcomplaint');
+const admin = require('./routes/newadmin'); // Added
 
 // Using routes
 app.use("/api/mess", mess);
@@ -433,5 +434,6 @@ app.use("/api/user", user);
 app.use("/api/room", room);
 app.use("/api/staff", staff);
 app.use("/api/complaint", complaint);
+app.use("/api/admin", admin); // Added
 
 app.listen(5000);
